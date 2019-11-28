@@ -70,15 +70,22 @@ class LinebotController < ApplicationController
           }
           client.reply_message(event['replyToken'], message)
         elsif event.message['text'] == "日付選択"
+          # postback = {  
+          #   "type":"postback",
+          #   "label":"Buy",
+          #   "data":"action=buy&itemid=111",
+          #   "text":"Buy"
+          # }
           message = {  
             "type":"datetimepicker",
             "label":"Select date",
-            "data":"storeId=12345",
+            "data":"action=date",
             "mode":"datetime",
             "initial":"2017-12-25t00:00",
             "max":"2018-01-24t23:59",
             "min":"2017-12-25t00:00"
-          }
+         }
+          p message
           client.reply_message(event['replyToken'], message)
         else
           case event.type
