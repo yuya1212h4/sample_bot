@@ -43,7 +43,7 @@ class LinebotController < ApplicationController
         when /gender/
           message = {
             type: "text",
-            text: "日付を選択しました。"
+            text: "次にあなたの年齢を教えて下さい。"
           }
           client.reply_message(event['replyToken'], message)
         end
@@ -93,13 +93,13 @@ class LinebotController < ApplicationController
                     {
                       "type": "postback",
                       "label": "男性",
-                      "data":"action=gender",
+                      "data":"action=gender&genderId=0",
                       "displayText": "男性",
                     },
                     {
                       "type": "postback",
                       "label": "女性",
-                      "data":"action=gender",
+                      "data":"action=gender&genderId=1",
                       "displayText": "女性",
                     }
                 ]
