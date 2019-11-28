@@ -75,12 +75,14 @@ class LinebotController < ApplicationController
                     {
                       "type": "message",
                       "label": "男性",
-                      "text": "man"
+                      "text": "男性",
+                      "data":"action=gender",
                     },
                     {
                       "type": "message",
                       "label": "女性",
-                      "text": "woman"
+                      "text": "女性",
+                      "data":"action=gender",
                     }
                 ]
             }
