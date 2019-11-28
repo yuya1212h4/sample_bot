@@ -89,7 +89,7 @@ class LinebotController < ApplicationController
                       "type":"datetimepicker",
                       "label":"Select date",
                       "data":"action=datetemp&selectId=1",
-                      "mode":"date",
+                      "mode":"datetime",
                       "initial":"2017-12-25t00:00",
                       "max":"2018-01-24t23:59",
                       "min":"2017-12-25t00:00"
