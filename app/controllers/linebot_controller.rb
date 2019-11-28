@@ -40,6 +40,12 @@ class LinebotController < ApplicationController
             text: "後で日付を選択して下さい。"
           }
           client.reply_message(event['replyToken'], message)
+        when /gender/
+          message = {
+            type: "text",
+            text: "日付を選択しました。"
+          }
+          client.reply_message(event['replyToken'], message)
         end
       when Line::Bot::Event::Message
         if event.message['text'] == "確認テンプレート"
@@ -72,17 +78,29 @@ class LinebotController < ApplicationController
                 "type": "confirm",
                 "text": "性別を選択して下さい。",
                 "actions": [
+                    # {
+                    #   "type": "message",
+                    #   "label": "男性",
+                    #   "text": "男性",
+                    #   "data":"action=gender", type="message"では使えない
+                    # },
+                    # {
+                    #   "type": "message",
+                    #   "label": "女性",
+                    #   "text": "女性",
+                    #   "data":"action=gender",
+                    # }
                     {
-                      "type": "message",
+                      "type": "postback",
                       "label": "男性",
-                      "text": "男性",
                       "data":"action=gender",
+                      "displayText": "男性",
                     },
                     {
-                      "type": "message",
+                      "type": "postback",
                       "label": "女性",
-                      "text": "女性",
                       "data":"action=gender",
+                      "displayText": "女性",
                     }
                 ]
             }
