@@ -25,7 +25,7 @@ class LinebotController < ApplicationController
       p event
       case event
       when Line::Bot::Event::Message
-        if event.message['text'] == "ボタン"
+        if event.message['text'] == "確認テンプレート"
           message = {
             "type": "template",
             "altText": "this is a confirm template",
@@ -42,6 +42,28 @@ class LinebotController < ApplicationController
                       "type": "message",
                       "label": "No",
                       "text": "no"
+                    }
+                ]
+            }
+          }
+          client.reply_message(event['replyToken'], message)
+        elsif event.message['text'] == "性別は？"
+          message = {
+            "type": "template",
+            "altText": "this is a confirm template",
+            "template": {
+                "type": "confirm",
+                "text": "性別を選択して下さい。",
+                "actions": [
+                    {
+                      "type": "message",
+                      "label": "man",
+                      "text": "男性"
+                    },
+                    {
+                      "type": "message",
+                      "label": "woman",
+                      "text": "女性"
                     }
                 ]
             }
