@@ -25,8 +25,8 @@ class LinebotController < ApplicationController
       case event
       when Line::Bot::Event::Postback
         p event
-        p event.postback
-        date = event.postback.params
+        p event['postback']
+        date = event['postback'].params
         message = {
           "type": "text",
           "text": date
