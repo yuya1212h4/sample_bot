@@ -24,6 +24,8 @@ class LinebotController < ApplicationController
     events.each { |event|
       case event
       when Line::Bot::Event::Postback
+        case event['postback']['data']
+        when /datetemp/
         # p event.postback これはnoMethoderror
         p event['postback']
         date = event['postback']['params']['datetime']
@@ -32,6 +34,13 @@ class LinebotController < ApplicationController
           text: date
         }
         client.reply_message(event['replyToken'], message)
+        when /cancel/
+          message = {
+            type: "text",
+            text: "後で日付を選択して下さい。"
+          }
+          client.reply_message(event['replyToken'], message)
+        end
       when Line::Bot::Event::Message
         if event.message['text'] == "確認テンプレート"
           message = {
