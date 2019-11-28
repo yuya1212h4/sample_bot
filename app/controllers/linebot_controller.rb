@@ -57,16 +57,27 @@ class LinebotController < ApplicationController
                 "actions": [
                     {
                       "type": "message",
-                      "label": "man",
-                      "text": "男性"
+                      "label": "男性",
+                      "text": "man"
                     },
                     {
                       "type": "message",
-                      "label": "woman",
-                      "text": "女性"
+                      "label": "女性",
+                      "text": "woman"
                     }
                 ]
             }
+          }
+          client.reply_message(event['replyToken'], message)
+        elsif event.message['text'] == "日付選択"
+          message = {  
+            "type":"datetimepicker",
+            "label":"Select date",
+            "data":"storeId=12345",
+            "mode":"datetime",
+            "initial":"2017-12-25t00:00",
+            "max":"2018-01-24t23:59",
+            "min":"2017-12-25t00:00"
           }
           client.reply_message(event['replyToken'], message)
         else
