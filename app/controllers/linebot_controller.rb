@@ -70,21 +70,31 @@ class LinebotController < ApplicationController
           }
           client.reply_message(event['replyToken'], message)
         elsif event.message['text'] == "日付選択"
-          # postback = {  
-          #   "type":"postback",
-          #   "label":"Buy",
-          #   "data":"action=buy&itemid=111",
-          #   "text":"Buy"
-          # }
-          message = {  
-            "type":"datetimepicker",
-            "label":"Select date",
-            "data":"action=date",
-            "mode":"datetime",
-            "initial":"2017-12-25t00:00",
-            "max":"2018-01-24t23:59",
-            "min":"2017-12-25t00:00"
-         }
+          message = {
+            "type": "template",
+            "altText": "this is a buttons template",
+            "template": {
+                "type": "buttons",
+                "title": "日程選択",
+                "text": "日程を選択して下さい。",
+                "actions": [
+                    {
+                      "type":"datetimepicker",
+                      "label":"Select date",
+                      "data":"action=datetemp&selectId=1",
+                      "mode":"datetime",
+                      "initial":"2017-12-25t00:00",
+                      "max":"2018-01-24t23:59",
+                      "min":"2017-12-25t00:00"
+                    },
+                    {
+                      "type": "postback",
+                      "label": "今は選択しない",
+                      "data": "action=cancel&selectId=2"
+                    },
+                ]
+            }
+          }
           p message
           client.reply_message(event['replyToken'], message)
         else
