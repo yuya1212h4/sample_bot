@@ -52,7 +52,7 @@ class LinebotController < ApplicationController
         #     text: "次にあなたの所属名を教えて下さい。"
         #   }
         #   client.reply_message(event['replyToken'], message)
-        # end
+        end
       when Line::Bot::Event::Message
         if event.message['text'] == "確認テンプレート"
           message = {
