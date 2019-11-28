@@ -210,6 +210,7 @@ class LinebotController < ApplicationController
           }
           client.reply_message(event['replyToken'], message)
         elsif event.message['text'].match(/\d\d/)
+          p "年齢選択"
           message = {
             "type": "postback",
             "label": "年齢",
