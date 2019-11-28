@@ -24,6 +24,13 @@ class LinebotController < ApplicationController
     events.each { |event|
       p event
       case event
+      when Line::Bot::Event::Postback
+        date = event.postback.params.date
+        message = {
+          "type": "text",
+          "text": date
+        }
+        client.reply_message(event['replyToken'], message)
       when Line::Bot::Event::Message
         if event.message['text'] == "確認テンプレート"
           message = {
@@ -82,7 +89,7 @@ class LinebotController < ApplicationController
                       "type":"datetimepicker",
                       "label":"Select date",
                       "data":"action=datetemp&selectId=1",
-                      "mode":"datetime",
+                      "mode":"date",
                       "initial":"2017-12-25t00:00",
                       "max":"2018-01-24t23:59",
                       "min":"2017-12-25t00:00"
