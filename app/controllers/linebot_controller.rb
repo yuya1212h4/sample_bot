@@ -46,13 +46,13 @@ class LinebotController < ApplicationController
             text: "次にあなたの年齢を教えて下さい。"
           }
           client.reply_message(event['replyToken'], message)
-        when /age/
-          message = {
-            type: "text",
-            text: "次にあなたの所属名を教えて下さい。"
-          }
-          client.reply_message(event['replyToken'], message)
-        end
+        # when /age/
+        #   message = {
+        #     type: "text",
+        #     text: "次にあなたの所属名を教えて下さい。"
+        #   }
+        #   client.reply_message(event['replyToken'], message)
+        # end
       when Line::Bot::Event::Message
         if event.message['text'] == "確認テンプレート"
           message = {
@@ -210,11 +210,10 @@ class LinebotController < ApplicationController
           }
           client.reply_message(event['replyToken'], message)
         elsif event.message['text'].match(/\d\d/)
-          p "年齢選択"
           message = {
-            "type": "postback",
-            "label": "年齢",
-            "data":"action=age&age=#{event.message['text']}",
+            type: "text",
+            label: "所属",
+            text: "次にあなたの所属名を教えて下さい。"
           }
           client.reply_message(event['replyToken'], message)
         else
