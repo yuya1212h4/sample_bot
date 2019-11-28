@@ -26,7 +26,7 @@ class LinebotController < ApplicationController
       when Line::Bot::Event::Postback
         # p event.postback これはnoMethoderror
         p event['postback']
-        date = event['postback']['params']
+        date = event['postback']['params']['datetime']
         message = {
           type: "text",
           text: date
