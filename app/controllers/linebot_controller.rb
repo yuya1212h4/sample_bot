@@ -27,8 +27,24 @@ class LinebotController < ApplicationController
       when Line::Bot::Event::Message
         if event.message['text'] == "ボタン"
           message = {
-            type: 'text',
-            text: event.message['text'] + "だよ。"
+            "type": "template",
+            "altText": "this is a confirm template",
+            "template": {
+                "type": "confirm",
+                "text": "Are you sure?",
+                "actions": [
+                    {
+                      "type": "message",
+                      "label": "Yes",
+                      "text": "yes"
+                    },
+                    {
+                      "type": "message",
+                      "label": "No",
+                      "text": "no"
+                    }
+                ]
+            }
           }
           client.reply_message(event['replyToken'], message)
         else
