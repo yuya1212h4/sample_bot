@@ -46,6 +46,12 @@ class LinebotController < ApplicationController
             text: "次にあなたの年齢を教えて下さい。"
           }
           client.reply_message(event['replyToken'], message)
+        when /age/
+          message = {
+            type: "text",
+            text: "次にあなたの所属名を教えて下さい。"
+          }
+          client.reply_message(event['replyToken'], message)
         end
       when Line::Bot::Event::Message
         if event.message['text'] == "確認テンプレート"
@@ -201,6 +207,13 @@ class LinebotController < ApplicationController
                 "imageAspectRatio": "rectangle",
                 "imageSize": "cover"
             }
+          }
+          client.reply_message(event['replyToken'], message)
+        elsif event.message['text'].match(/\d\d/)
+          message = {
+            "type": "postback",
+            "label": "年齢",
+            "data":"action=age&age=#{event.message['text']}",
           }
           client.reply_message(event['replyToken'], message)
         else
