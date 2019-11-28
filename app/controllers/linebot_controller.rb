@@ -24,12 +24,12 @@ class LinebotController < ApplicationController
     events.each { |event|
       case event
       when Line::Bot::Event::Postback
-        p event
+        # p event.postback これはnoMethoderror
         p event['postback']
         date = event['postback']['params']
         message = {
-          "type": "text",
-          "text": date
+          type: "text",
+          text: date
         }
         client.reply_message(event['replyToken'], message)
       when Line::Bot::Event::Message
