@@ -55,7 +55,7 @@ class LinebotController < ApplicationController
         when /buy/
           message = {
             type: "text",
-            text: "タップしたよ。"
+            text: "タップしたよ。\n改行確認"
           }
           client.reply_message(event['replyToken'], message)
         end
