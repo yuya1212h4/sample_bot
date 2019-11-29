@@ -38,12 +38,13 @@ class Linebot2Controller < ApplicationController
         if event.message['text'] == "メニュー"
           message = {
             type: "text",
-            label: "メニュー一覧",
-            text: "(1)氏名\n
-                   (2)性別\n
-                   (3)年齢\n
-                   (4)所属\n
-                   (5)学歴\n"
+            # label: "メニュー一覧",
+            text: "メニュー一覧
+(1)氏名
+(2)性別
+(3)年齢
+(4)所属
+(5)学歴"
           }
           client.reply_message(event['replyToken'], message)
         elsif event.message['text'] == "確認"
@@ -57,7 +58,7 @@ class Linebot2Controller < ApplicationController
                     (5)学歴\n"
           }
           client.reply_message(event['replyToken'], message)
-        elsif event.message['text'] == 1
+        elsif event.message['text'] == "1"
           name = event.message['text']
           p name
           # name.save
@@ -66,7 +67,7 @@ class Linebot2Controller < ApplicationController
             text: "「"+ event.message['text']+ "」を保存しました。"
           }
           client.reply_message(event['replyToken'], message)
-        elsif event.message['text'] == 2
+        elsif event.message['text'] == "2"
           message = {
             "type": "template",
             "altText": "this is a confirm template",
@@ -90,9 +91,9 @@ class Linebot2Controller < ApplicationController
             }
           }
           client.reply_message(event['replyToken'], message)
-        elsif event.message['text'] == 3
-        elsif event.message['text'] == 4
-        elsif event.message['text'] == 5
+        elsif event.message['text'] == "3"
+        elsif event.message['text'] == "4"
+        elsif event.message['text'] == "5"
         else
           case event.type
           when Line::Bot::Event::MessageType::Text
