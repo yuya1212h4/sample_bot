@@ -22,14 +22,86 @@ class Linebot2Controller < ApplicationController
 
     events.each { |event|
       case event
-      when Line::Bot::Event::Message
-        case event.type
-        when Line::Bot::Event::MessageType::Text
+      when Line::Bot::Event::Postback
+        case event['postback']['data']
+        when /gender/
+          data = event['postback']['data']
+          p data
+          # gender.save
           message = {
             type: 'text',
-            text: event.message['text'] + "です。"
+            text: "「"+ event.message['text']+ "」を保存しました。"
           }
           client.reply_message(event['replyToken'], message)
+        end
+      when Line::Bot::Event::Message
+        if event.message['text'] == "メニュー"
+          message = {
+            type: "text",
+            label: "メニュー一覧",
+            text: "(1)氏名\n
+                   (2)性別\n
+                   (3)年齢\n
+                   (4)所属\n
+                   (5)学歴\n"
+          }
+          client.reply_message(event['replyToken'], message)
+        elsif event.message['text'] == "確認"
+          message = {
+            type: "text",
+            label: "現在保存されている一覧です。",
+            text: "(1)氏名\n
+                    (2)性別\n
+                    (3)年齢\n
+                    (4)所属\n
+                    (5)学歴\n"
+          }
+          client.reply_message(event['replyToken'], message)
+        elsif event.message['text'] == 1
+          name = event.message['text']
+          p name
+          # name.save
+          message = {
+            type: 'text',
+            text: "「"+ event.message['text']+ "」を保存しました。"
+          }
+          client.reply_message(event['replyToken'], message)
+        elsif event.message['text'] == 2
+          message = {
+            "type": "template",
+            "altText": "this is a confirm template",
+            "template": {
+                "type": "confirm",
+                "text": "性別を選択して下さい。",
+                "actions": [
+                    {
+                      "type": "postback",
+                      "label": "男性",
+                      "data":"action=gender&genderId=0",
+                      "displayText": "男性",
+                    },
+                    {
+                      "type": "postback",
+                      "label": "女性",
+                      "data":"action=gender&genderId=1",
+                      "displayText": "女性",
+                    }
+                ]
+            }
+          }
+          client.reply_message(event['replyToken'], message)
+        elsif event.message['text'] == 3
+        elsif event.message['text'] == 4
+        elsif event.message['text'] == 5
+        else
+          case event.type
+          when Line::Bot::Event::MessageType::Text
+            message = {
+              type: 'text',
+              text: event.message['text'] + "です。"
+            }
+            client.reply_message(event['replyToken'], message)
+          end
         end
       end
     }
