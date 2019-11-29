@@ -409,7 +409,6 @@ class LinebotController < ApplicationController
             ],
             "flex": 0
           }
-          }
         }
       ]
     }
