@@ -224,9 +224,7 @@ class LinebotController < ApplicationController
           client.reply_message(event['replyToken'], message)
         elsif event.message['text'] == "フレックス"
           p "フレックス"
-          message = {
-      
-      "messages": [
+          message = [
         {
           "type": "flex",
           "altText": "This is a Flex Message",
@@ -382,7 +380,7 @@ class LinebotController < ApplicationController
           }
         }
       ]
-    }
+    
           client.reply_message(event['replyToken'], message)
         else
           case event.type
