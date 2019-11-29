@@ -69,10 +69,18 @@ class Linebot2Controller < ApplicationController
           # }
 
           message = {
-            "type":"postback",
-            "label":"name",
-            "data":"action=age&data=#{name}",
-            "text":"氏名を入力して下さい。"
+            "type": "template",
+            "altText": "this is a confirm template",
+            "template": {
+              "type": "text",
+              "text": "氏名を入力して下さい。",
+              actions: {
+                "type": "postback",
+                "label": "name",
+                "data": "action=age&data=#{name}",
+                "text": "氏名を入力して下さい"
+              }
+            }
           }
           client.reply_message(event['replyToken'], message)
         elsif event.message['text'] == "2"
