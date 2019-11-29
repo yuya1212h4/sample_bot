@@ -225,7 +225,7 @@ class LinebotController < ApplicationController
         elsif event.message['text'] == "フレックス"
           p "フレックス"
           message = {
-      "to": "Ucc352993fd0f2ce80d045149320123c3",
+      
       "messages": [
         {
           "type": "flex",
