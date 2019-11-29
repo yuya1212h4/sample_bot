@@ -375,7 +375,7 @@ class LinebotController < ApplicationController
                 "label": "postback",
                 "data": "action=test&data=23",
                 "displayText": "postback"
-              }
+              },
               {
                 "type": "spacer",
                 "size": "sm"
