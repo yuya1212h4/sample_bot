@@ -224,7 +224,28 @@ class LinebotController < ApplicationController
           client.reply_message(event['replyToken'], message)
         elsif event.message['text'] == "フレックス"
           p "フレックス"
-          message = [
+          client.reply_message(event['replyToken'], flex_message)
+        else
+          case event.type
+          when Line::Bot::Event::MessageType::Text
+            message = {
+              type: 'text',
+              text: event.message['text'] + "です。",
+              postback: "#{event.message['text']}"
+            }
+            client.reply_message(event['replyToken'], message)
+          end
+        end
+      end
+    }
+
+    head :ok
+  end
+
+  def flex_message
+    p "flex_message"
+    return {
+      [
         {
           "type": "flex",
           "altText": "This is a Flex Message",
@@ -379,185 +400,6 @@ class LinebotController < ApplicationController
                   "label": "postback",
                   "data": "action=test&data=23",
                   "displayText": "postback"
-                }
-              },
-              {
-                "type": "spacer",
-                "size": "sm"
-              }
-            ],
-            "flex": 0
-          }
-          }
-        }
-      ]
-    
-          client.reply_message(event['replyToken'], message)
-        else
-          case event.type
-          when Line::Bot::Event::MessageType::Text
-            message = {
-              type: 'text',
-              text: event.message['text'] + "です。",
-              postback: "#{event.message['text']}"
-            }
-            client.reply_message(event['replyToken'], message)
-          end
-        end
-      end
-    }
-
-    head :ok
-  end
-
-  def flex_message
-    p "flex_message"
-    return {
-      "to": "Ucc352993fd0f2ce80d045149320123c3",
-      "messages": [
-        {
-          "type": "flex",
-          "altText": "This is a Flex Message",
-          "contents": {
-          "type": "bubble",
-          "hero": {
-            "type": "image",
-            "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
-            "size": "full",
-            "aspectRatio": "20:13",
-            "aspectMode": "cover",
-            "action": {
-              "type": "uri",
-              "uri": "http://linecorp.com/"
-            }
-          },
-          "body": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "text",
-                "text": "Brown Cafe",
-                "weight": "bold",
-                "size": "xl"
-              },
-              {
-                "type": "box",
-                "layout": "baseline",
-                "margin": "md",
-                "contents": [
-                  {
-                    "type": "icon",
-                    "size": "sm",
-                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-                  },
-                  {
-                    "type": "icon",
-                    "size": "sm",
-                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-                  },
-                  {
-                    "type": "icon",
-                    "size": "sm",
-                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-                  },
-                  {
-                    "type": "icon",
-                    "size": "sm",
-                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-                  },
-                  {
-                    "type": "icon",
-                    "size": "sm",
-                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gray_star_28.png"
-                  },
-                  {
-                    "type": "text",
-                    "text": "4.0",
-                    "size": "sm",
-                    "color": "#999999",
-                    "margin": "md",
-                    "flex": 0
-                  }
-                ]
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "margin": "lg",
-                "spacing": "sm",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "baseline",
-                    "spacing": "sm",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "Place",
-                        "color": "#aaaaaa",
-                        "size": "sm",
-                        "flex": 1
-                      },
-                      {
-                        "type": "text",
-                        "text": "Miraina Tower, 4-1-6 Shinjuku, Tokyo",
-                        "wrap": true,
-                        "color": "#666666",
-                        "size": "sm",
-                        "flex": 5
-                      }
-                    ]
-                  },
-                  {
-                    "type": "box",
-                    "layout": "baseline",
-                    "spacing": "sm",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "Time",
-                        "color": "#aaaaaa",
-                        "size": "sm",
-                        "flex": 1
-                      },
-                      {
-                        "type": "text",
-                        "text": "10:00 - 23:00",
-                        "wrap": true,
-                        "color": "#666666",
-                        "size": "sm",
-                        "flex": 5
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          "footer": {
-            "type": "box",
-            "layout": "vertical",
-            "spacing": "sm",
-            "contents": [
-              {
-                "type": "button",
-                "style": "link",
-                "height": "sm",
-                "action": {
-                  "type": "uri",
-                  "label": "CALL",
-                  "uri": "https://linecorp.com"
-                }
-              },
-              {
-                "type": "button",
-                "style": "link",
-                "height": "sm",
-                "action": {
-                  "type": "uri",
-                  "label": "WEBSITE",
-                  "uri": "https://linecorp.com"
                 }
               },
               {
