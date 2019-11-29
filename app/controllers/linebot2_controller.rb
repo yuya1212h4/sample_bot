@@ -62,9 +62,17 @@ class Linebot2Controller < ApplicationController
           name = event.message['text']
           p name
           # name.save
+          # message = {
+          #   type: 'text',
+          #   text: "氏名を入力して下さい。"
+          #   # text: "「"+ event.message['text']+ "」を保存しました。"
+          # }
+
           message = {
-            type: 'text',
-            text: "「"+ event.message['text']+ "」を保存しました。"
+            "type":"postback",
+            "label":"name",
+            "data":"action=age&data=#{name}",
+            "text":"氏名を入力して下さい。"
           }
           client.reply_message(event['replyToken'], message)
         elsif event.message['text'] == "2"
