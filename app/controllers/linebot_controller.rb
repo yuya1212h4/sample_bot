@@ -371,10 +371,15 @@ class LinebotController < ApplicationController
                 }
               },
               {
-                "type": "postback",
-                "label": "postback",
-                "data": "action=test&data=23",
-                "displayText": "postback"
+                "type": "button",
+                "style": "link",
+                "height": "sm",
+                "action": {
+                  "type": "postback",
+                  "label": "postback",
+                  "data": "action=test&data=23",
+                  "displayText": "postback"
+                }
               },
               {
                 "type": "spacer",
