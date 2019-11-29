@@ -10,6 +10,7 @@ class Linebot2Controller < ApplicationController
   end
 
   def callback
+    @count = 0
     body = request.body.read
 
     signature = request.env['HTTP_X_LINE_SIGNATURE']
@@ -36,6 +37,8 @@ class Linebot2Controller < ApplicationController
         end
       when Line::Bot::Event::Message
         if event.message['text'] == "メニュー"
+          @count += 1
+          p @count
           message = {
             type: "text",
             # label: "メニュー一覧",
@@ -48,6 +51,8 @@ class Linebot2Controller < ApplicationController
           }
           client.reply_message(event['replyToken'], message)
         elsif event.message['text'] == "確認"
+          @count += 1
+          p @count
           message = {
             type: "text",
             label: "現在保存されている一覧です。",
