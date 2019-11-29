@@ -52,6 +52,12 @@ class LinebotController < ApplicationController
         #     text: "次にあなたの所属名を教えて下さい。"
         #   }
         #   client.reply_message(event['replyToken'], message)
+        when /buy/
+          message = {
+            type: "text",
+            text: "タップしたよ。"
+          }
+          client.reply_message(event['replyToken'], message)
         end
       when Line::Bot::Event::Message
         if event.message['text'] == "確認テンプレート"
